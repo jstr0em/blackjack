@@ -30,10 +30,11 @@ class Card:
     def get_symbol(self):
         return self.symbol
 
-# TODO: Can this inherit list? Might be nice for refactoring.
+
 class Cards(list):
     def __init__(self, *args):
         list.__init__(self, *args)
+
 
     def __repr__(self):
         cards = ""
@@ -42,21 +43,23 @@ class Cards(list):
 
         return cards.rstrip()
 
+
     def __add__(self, item): # must be able to process card oject
         if isinstance(item, Card):
             return self.append(item)
         elif isinstance(item, Cards):
-            return self + item.cards
+            return self + item
 
+    # 
     def shuffle(self):
-        random.shuffle(self.cards)
+        random.shuffle(self)
 
+    # wrapper for "pop"
     def take_card(self):
-        return self.cards.pop()
-
-    # def sort(): # to do
+        return self.pop()
 
 
 class Deck(Cards):
     def __init__(self):
-        self.cards = [Card(suit, symbol) for symbol in Card.symbols for suit in Card.suits]
+        # populates the deck with each unique card in a deck of cards (excluding jokers)
+        Cards.__init__(self, [Card(suit, symbol) for symbol in Card.symbols for suit in Card.suits])

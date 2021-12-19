@@ -1,43 +1,34 @@
-from pytest import *
 from main import *
 
-
-def add_cards():
+# test if we can add two cards together, which should yield a Cards object
+def test_add_two_cards():
     h2 = Card("Heart", "Two")
     s2 = Card("Spade", "Two")
     c2 = Card("Club", "Two")
     cards = h2 + s2
-    empty_cards = Cards()
-    #print(empty_cards)
-    empty_cards + c2
-    #print(empty_cards)
+
+    # adding two Card objects shall create a Cards object
+    assert isinstance(cards, Cards)
+    assert len(cards) == 2
+    assert (cards.__repr__() == "H2 S2")
+
+    # adding a card to cards
     cards + c2
+    assert isinstance(cards, Cards)
+    assert len(cards) == 3
+    assert (cards.__repr__() == "H2 S2 C2")
 
-    #print(cards)
-
-    assert (cards.__repr__() == "H2 S2 C2") and (cards.get_value() == 6)
-
-def generate_deck():
+# test if we can create and shuffle a deck of cards
+def test_shuffle_deck():
+    # creates a brand new card deck
     deck = Deck()
+    assert len(deck) == 52
 
-    assert len(deck.cards) == 52
+    # shuffles the deck and checks that it is different from the unshuffled deck
+    unshuffled_deck = deck.copy()
+    deck.shuffle()
+    assert deck != unshuffled_deck
 
-def take_card_test():
-    deck = Deck()
-
-    card = deck.take_card()
-    return card, len(deck.cards)
-
-def play_blackjack():
-    player1 = Player("Jonathan", 100)
-    player2 = Player("Michael", 200)
-    dealer = Dealer()
-    deck = Deck()
-
-    blackjack = Blackjack([player1, player2], dealer, deck)
     
-    blackjack.play()
 
-#add_cards()
-#generate_deck()
-play_blackjack()
+
