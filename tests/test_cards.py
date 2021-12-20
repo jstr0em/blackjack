@@ -1,4 +1,4 @@
-from main import *
+import blackjack
 
 # test if we can add two cards together, which should yield a Cards object
 def test_add_two_cards():
