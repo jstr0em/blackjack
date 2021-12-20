@@ -1,4 +1,5 @@
-import blackjack
+from cards import Card, Cards, Deck
+
 
 # test if we can add two cards together, which should yield a Cards object
 def test_add_two_cards():
@@ -18,6 +19,7 @@ def test_add_two_cards():
     assert len(cards) == 3
     assert (cards.__repr__() == "H2 S2 C2")
 
+
 # test if we can create and shuffle a deck of cards
 def test_shuffle_deck():
     # creates a brand new card deck
@@ -28,7 +30,3 @@ def test_shuffle_deck():
     unshuffled_deck = deck.copy()
     deck.shuffle()
     assert deck != unshuffled_deck
-
-    
-
-
