@@ -50,10 +50,22 @@ endif
 Method for evaluating if a player has won, is eliminated, or proceeds.
 @startuml
 start
+
+if (Player value > 21)
+    :Player busts;
+    :Player loses bet;
+else if (Dealer value > 21)
+    :Dealer busts;
+else
+    :Continue;
+    switch (Player value is...)
+        case (Equal to 21)
+endif
 switch (Player value is...)
     case (Greater than 21)
         :Player busts;
         :Player loses bet;
+    case (Equal to 21)
     case (Less than or equal to 21)
         switch (Dealer value is...)
             case (Greater than 21)

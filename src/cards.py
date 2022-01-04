@@ -1,32 +1,40 @@
 import json
 import random
 
+
 class Card:
     suits = ["Club", "Diamond", "Heart", "Spade"]
-    symbols = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"]
+    symbols = [
+        "Ace", "Two", "Three", "Four", 
+        "Five", "Six", "Seven", "Eight", 
+        "Nine", "Ten", "Jack", "Queen", 
+        "King"
+        ]
 
-    # read file
-    with open('faces.json', 'r') as myfile:
+    # loads all the string representations of the cards
+    with open('blackjack/faces.json', 'r') as myfile:
         data = myfile.read()
-
-    # parse file
     faces = json.loads(data)
+
 
     def __init__(self, suit, symbol):
         self.suit = suit
         self.symbol = symbol
 
-        return
+
     def __repr__(self):
         return Card.faces[self.suit][self.symbol]
+
 
     def __add__(self, item):
         if isinstance(item, Card):
             return Cards([self, item])
 
+
     def get_suit(self):
         return self.suit
     
+
     def get_symbol(self):
         return self.symbol
 
@@ -50,7 +58,8 @@ class Cards(list):
         elif isinstance(item, Cards):
             return self + item
 
-    # 
+
+    # shuffles the deck of cards
     def shuffle(self):
         random.shuffle(self)
 
@@ -62,4 +71,10 @@ class Cards(list):
 class Deck(Cards):
     def __init__(self):
         # populates the deck with each unique card in a deck of cards (excluding jokers)
-        Cards.__init__(self, [Card(suit, symbol) for symbol in Card.symbols for suit in Card.suits])
+        Cards.__init__(
+            self, [
+            Card(suit, symbol) 
+            for symbol in Card.symbols 
+            for suit in Card.suits
+            ]
+            )

@@ -1,5 +1,5 @@
-from cards import *
-from participants import *
+from blackjack.cards import *
+from blackjack.participants import *
 
 
 
@@ -86,7 +86,9 @@ class Blackjack:
     def player_decision(self, player):
         player_value = self.value(player)
 
-        #if 
+        if player_value >= 16:
+            want_card = input("Your current score is " + player_value + ".\nDo you want another card?")
+            dealer.deal_card(player, deck)
             
     def play(self):
         print("Welcome to Blackjack!")
