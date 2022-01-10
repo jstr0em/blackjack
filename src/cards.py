@@ -12,7 +12,7 @@ class Card:
         ]
 
     # loads all the string representations of the cards
-    with open('blackjack/faces.json', 'r') as myfile:
+    with open('src/faces.json', 'r') as myfile:
         data = myfile.read()
     faces = json.loads(data)
 

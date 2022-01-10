@@ -1,5 +1,5 @@
-from blackjack.cards import *
-from blackjack.participants import *
+from src.cards import Deck
+from src.participants import Player, Dealer
 
 
 
@@ -48,14 +48,14 @@ class Blackjack:
                     elif len(player.cards) == 2 and len(dealer.cards) > 2:
                         self.win(player)
                     elif len(player.cards) == len(dealer.cards):
-                        self.tie() 
+                        self.tie(player) 
                 else:
                     self.win(dealer)
             elif dealer_value < 21:
                 if player_value > dealer_value:
                     self.win(player)
                 elif player_value == dealer_value:
-                    self.tie()
+                    self.tie(player)
                 elif player_value < dealer_value:
                     self.bust(player)
 

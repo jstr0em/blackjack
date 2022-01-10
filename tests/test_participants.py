@@ -1,5 +1,5 @@
-from blackjack.participants import Dealer, Player
-from blackjack.cards import Cards, Deck
+from src.participants import Dealer, Player
+from src.cards import Cards, Deck
 
 # Tests that we can add a player and place some initial bets.
 def test_player():
