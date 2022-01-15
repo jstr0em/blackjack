@@ -1,6 +1,6 @@
-from src.cards import Deck
-from src.participants import Player, Dealer
-
+from cards import Deck
+from participants import Player, Dealer
+import sys
 
 
 class Blackjack:
@@ -115,5 +115,24 @@ class Blackjack:
         self.check_cards()
         self.evaluate_scores(players, dealer)
 
+
+def generate_players(player_name_credit_list):
+    players = []
+    for i in range(0, len(player_name_credit_list), 2):
+        name = player_name_credit_list[i]
+        credit = player_name_credit_list[i+1]
+        player = Player(name, credit)
+        players.append(player)
+
+    return players
         
-        
+def main():
+    players = generate_players(sys.argv[1:])
+    dealer = Dealer()
+    deck = Deck()
+    
+    blackjack = Blackjack(players, dealer, deck)
+    blackjack.play()
+
+if __name__ == "__main__":
+    main()
