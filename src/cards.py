@@ -1,29 +1,40 @@
 import json
 import random
+from enum import Enum
+
+
+class Suit(Enum):
+    SPADE = 'A'
+    HEART = 'B'
+    DIAMOND = 'C'
+    CLUB = 'D'
+
+
+class Rank(Enum):
+    ACE = 1
+    TWO = 2
+    THREE = 3
+    FOUR = 4
+    FIVE = 5
+    SIX = 6
+    SEVEN = 7
+    EIGHT = 8
+    NINE = 9
+    TEN = 'A'
+    KNIGHT = 'B'
+    QUEEN = 'D'
+    KING = 'E'
 
 
 class Card:
-    suits = ["Club", "Diamond", "Heart", "Spade"]
-    symbols = [
-        "Ace", "Two", "Three", "Four", 
-        "Five", "Six", "Seven", "Eight", 
-        "Nine", "Ten", "Jack", "Queen", 
-        "King"
-        ]
-
-    # loads all the string representations of the cards
-    with open('src/faces.json', 'r') as myfile:
-        data = myfile.read()
-    faces = json.loads(data)
-
-
-    def __init__(self, suit, symbol):
+    def __init__(self, suit, rank):
         self.suit = suit
-        self.symbol = symbol
+        self.rank = rank
 
 
     def __repr__(self):
-        return Card.faces[self.suit][self.symbol]
+        unicode = "0001F0{suit}{rank}".format(suit = self.suit.value, rank = self.rank.value)
+        return chr(int(unicode, base=16))
 
 
     def __add__(self, item):
@@ -37,7 +48,6 @@ class Card:
 
     def get_symbol(self):
         return self.symbol
-
 
 class Cards(list):
     def __init__(self, *args):
@@ -69,12 +79,12 @@ class Cards(list):
 
 
 class Deck(Cards):
-    def __init__(self):
+    def __init__(self, number_of_decks = 1):
         # populates the deck with each unique card in a deck of cards (excluding jokers)
         Cards.__init__(
             self, [
             Card(suit, symbol) 
             for symbol in Card.symbols 
             for suit in Card.suits
-            ]
+            ] * number_of_decks
             )
