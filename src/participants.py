@@ -14,7 +14,7 @@ class Player:
         self.credit -= amount
     
     def __repr__(self):
-        return self.name + self.cards.__repr__()
+        return self.name + " " + self.cards.__repr__()
 
     def stand(self):
         pass
@@ -33,7 +33,8 @@ class Dealer:
         self.name = "Dealer"
         self.cards = Cards()
 
-
+    def __repr__(self):
+        return self.name + " " + self.cards.__repr__()
     # Lets the dealer deal a card to a receiver from a deck.
     # Optionally, the card can be dealt "face down", i.e. hidden. 
     def deal_card(self, receiver, deck, face_down = False):

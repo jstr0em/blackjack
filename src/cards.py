@@ -49,6 +49,27 @@ class Card:
     def get_symbol(self):
         return self.symbol
 
+    def is_ace(self):
+        return self.rank is Rank.ACE
+
+
+    def is_face(self):
+        return self.rank is Rank.KNIGHT or Rank.QUEEN or Rank.KING
+
+    def is_ten_or_face(self):
+        return type(self.rank.value) is str
+
+"""
+card = Card(Suit.CLUB, Rank.KING)
+ace_card = Card(Suit.CLUB, Rank.ACE)
+print(card.is_ace())
+
+print(ace_card.is_ace())
+
+print(card.is_ten_or_face())
+
+print(ace_card.is_ten_or_face())
+"""
 class Cards(list):
     def __init__(self, *args):
         list.__init__(self, *args)
@@ -68,7 +89,6 @@ class Cards(list):
         elif isinstance(item, Cards):
             return self + item
 
-
     # shuffles the deck of cards
     def shuffle(self):
         random.shuffle(self)
@@ -83,8 +103,8 @@ class Deck(Cards):
         # populates the deck with each unique card in a deck of cards (excluding jokers)
         Cards.__init__(
             self, [
-            Card(suit, symbol) 
-            for symbol in Card.symbols 
-            for suit in Card.suits
+            Card(suit, rank) 
+            for rank in Rank 
+            for suit in Suit
             ] * number_of_decks
             )
