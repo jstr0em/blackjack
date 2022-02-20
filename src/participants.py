@@ -39,13 +39,15 @@ class Dealer:
     # Optionally, the card can be dealt "face down", i.e. hidden. 
     def deal_card(self, receiver, deck, face_down = False):
         card = deck.take_card()
-        print("Dealing {card} to {receiver}".format(card = card.__repr__(), receiver = receiver.name))
+        
         if isinstance(receiver, Dealer):
             if face_down == False:
+                print("Dealing {card} to {receiver}".format(card = card.__repr__(), receiver = receiver.name))
                 receiver.cards + card
             elif face_down == True:
                 receiver.hidden = card
-        elif isinstance(receiver, Player):     
+        elif isinstance(receiver, Player):
+            print("Dealing {card} to {receiver}".format(card = card.__repr__(), receiver = receiver.name)) 
             receiver.cards + card
 
 
