@@ -23,27 +23,24 @@ class Blackjack:
     def win(self, winner, winnings = 1):
         print("{winner} won!".format(winner = winner.name))
         player.bet *= winnings
-        self.players.pop(player)
+        self.players.pop(self.players.index(winner))
 
     def bust(self, loser):
         print("{loser} bust!".format(loser = loser.name))
+        self.players.pop(self.players.index(loser))
 
     def tie(self, player):
         print("{player} and the dealer are tied".format(player = player.name))
 
     def player_decision(self, player):
-        player_value = self.value(player)
-        dealer = self.dealer
-        deck = self.deck
-
-        if player_value >= 16:
-            want_card = input("Your current score is " + str(player_value) + ".\nDo you want another card?")
+        choice = int(input("Do you want another card?\n1) Yes\n2) No\n"))
+        
+        if choice == 1:
+            number_of_cards = int(input("How many cards? "))
+            for _ in range(number_of_cards):
+                self.dealer.deal_card(player, self.deck)
             
-            if want_card == "y":
-                dealer.deal_card(player, deck)
-                self.evaluate_score(player, dealer)
-            else:
-                return
+        return True
          
 
     def score(self, participant):
@@ -55,15 +52,14 @@ class Blackjack:
         # Aces are added to a list to be counted later.
         for card in participant.cards:
             if card.is_ace():
-                ace_queue.append(card)
+                aces.append(card)
             elif card.is_ten_or_face():
                 score += 10
             else:
                 score += card.rank.value
-            
 
         for ace in aces:
-            if score < (21 - len(aces)):
+            if score + 11 < (21 - len(aces) - 1):
                 score += 11
             else:
                 score += 1
@@ -97,28 +93,30 @@ class Blackjack:
         dealer.deal_card(dealer, deck, face_down=True)
 
         self.show_board()
-        """
+        
         # Check if any player has 21, if he does, he wins 1.5x their bet. 
         for player in players:
             player_score = self.score(player)
+            print(player_score)
             if player_score > 21:
                 self.bust(player)
             elif player_score == 21:
+                # The player is then done for the round
                 self.win(player, 1.5)
-        # The player is then done for the round
-
+        
+        
         # Each remaining player is asked if they want more cards. 
         # One or more may be asked for. 
         for player in players:
             stay = False
             while stay is not True:
-                self.player_decision(player)
+                stay = self.player_decision(player)
                 player_score = self.score(player)
                 if player_score > 21:
                     self.bust(player)
         # If they do not want more cards, they say stay. 
         # If they at any point score more than 21, they bust.
-
+        """
         # One each player has finished their choice, the dealer flips
         # up their face down card. 
         dealer.reveal_card()
