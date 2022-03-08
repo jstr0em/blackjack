@@ -4,8 +4,6 @@ import sys
 
 
 class Blackjack:
-    symbol_values = {"Two": 2, "Three": 3, "Four": 4, "Five": 5, "Six": 6, "Seven": 7, "Eight": 8, "Nine": 9, "Ten": 10, "Jack": 10, "Queen": 10, "King": 10}
-
     def __init__(self, players, dealer, deck):
         print("Welcome to Blackjack!")
 
@@ -15,22 +13,40 @@ class Blackjack:
 
         deck.shuffle()
 
+
     def place_bets(self):
         for player in self.players:
             amount = float(input("%s, enter your bet: " % player.name))
             player.place_bet(amount)
 
+
     def win(self, winner, winnings = 1):
-        print("{winner} won!".format(winner = winner.name))
-        player.bet *= winnings
-        self.players.pop(self.players.index(winner))
+        if isinstance(winner, Dealer):
+            print("The dealer won!")
+            return
+
+        if isinstance(winner, Player):
+            winners = list(winner)
+        elif isinstance(winner, list):
+            winners = winner
+        
+        for winner in winners:
+            print("{winner} won!".format(winner = winner.name))
+            winner.credit += winnings * winner.bet
+            self.players.pop(self.players.index(winner))
+
 
     def bust(self, loser):
-        print("{loser} bust!".format(loser = loser.name))
-        self.players.pop(self.players.index(loser))
+        if isinstance(loser, Player):
+            print("{loser} bust!".format(loser = loser.name))
+            self.players.pop(self.players.index(loser))
+        elif isinstance(loser, Dealer):
+            print("The dealer busts!")
+
 
     def tie(self, player):
         print("{player} and the dealer are tied".format(player = player.name))
+
 
     def player_decision(self, player):
         choice = int(input("Do you want another card?\n1) Yes\n2) No\n"))
@@ -116,36 +132,48 @@ class Blackjack:
                     self.bust(player)
         # If they do not want more cards, they say stay. 
         # If they at any point score more than 21, they bust.
-        """
+        
         # One each player has finished their choice, the dealer flips
         # up their face down card. 
         dealer.reveal_card()
-
+        self.show_board()
+        
         # If the dealers score is 16 or under, they have to take another card,
         # or if their score is 17 or higher, they have to stay their hand.
         # If the dealer busts, each remaining player receives 2x their bet.
+        
+        dealer_score = self.score(dealer)
+        while dealer_score <= 16:
+            print("Dealer score: ", dealer_score)
+            
+            dealer.deal_card(dealer, deck)
+            dealer_score = self.score(dealer)
+        
+        self.show_board()
         dealer_score = self.score(dealer)
 
-        while dealer_score <= 16:
-            if dealer_score > 21:
-                self.win(players, 2)
-                self.bust(dealer)
-                break
-            dealer.deal_card(dealer, deck)
-
+        if dealer_score > 21:
+            self.win(players, 2)
+            self.bust(dealer)
+        elif dealer_score == 21:
+            self.win(dealer)
+            self.bust(players)
         # Assuming the dealer hasn't busted, the rest of the players cards
         # are evaluated. Only the one who has a higher hand than the dealer 
         # wins 2x their bet. 
         # Everyone else loses their initial bet. 
+        #highest_scoring_player = None
+
+        highest_scoring_player = None
         dealer_score = self.score(dealer)
         for player in players:
             player_score = self.score(player)
             if player_score > dealer_score:
                 highest_scoring_player = player
 
-        self.win(highest_scoring_player, 2)
+        if isinstance(highest_scoring_player, Player):
+            self.win(highest_scoring_player, 2)
         # Now another round can start.
-        """
 
 
 def generate_players(player_name_credit_list):

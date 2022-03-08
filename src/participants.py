@@ -3,7 +3,7 @@ from cards import *
 class Player:
     def __init__(self, name, credit):
         self.name = name
-        self.credit = credit
+        self.credit = float(credit)
         self.bet = 0
         self.cards = Cards()
 
