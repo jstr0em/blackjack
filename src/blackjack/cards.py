@@ -1,4 +1,3 @@
-import json
 import random
 from enum import Enum
 
@@ -24,7 +23,6 @@ class Rank(Enum):
     KNIGHT = 'B'
     QUEEN = 'D'
     KING = 'E'
-
 
 class Card:
     def __init__(self, suit, rank):
@@ -59,17 +57,7 @@ class Card:
     def is_ten_or_face(self):
         return type(self.rank.value) is str
 
-"""
-card = Card(Suit.CLUB, Rank.KING)
-ace_card = Card(Suit.CLUB, Rank.ACE)
-print(card.is_ace())
 
-print(ace_card.is_ace())
-
-print(card.is_ten_or_face())
-
-print(ace_card.is_ten_or_face())
-"""
 class Cards(list):
     def __init__(self, *args):
         list.__init__(self, *args)

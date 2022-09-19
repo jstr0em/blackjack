@@ -1,5 +1,5 @@
-from cards import Deck, Suit, Rank
-from participants import Player, Dealer
+from blackjack.cards import Deck, Suit, Rank
+from blackjack.participants import Player, Dealer
 import sys
 
 

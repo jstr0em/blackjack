@@ -1,4 +1,4 @@
-from src.cards import Card, Cards, Deck
+from blackjack.cards import Card, Cards, Deck
 
 
 # test if we can add two cards together, which should yield a Cards object
