@@ -31,7 +31,7 @@ class Card:
 
 
     def __repr__(self):
-        unicode = "0001F0{suit}{rank}".format(suit = self.suit.value, rank = self.rank.value)
+        unicode = "0001F0{suit}{rank}".format(suit = self.suit, rank = self.rank)
         return chr(int(unicode, base=16))
 
 

@@ -1,3 +1,13 @@
 [build-system]
-requires = ["setuptools>=42", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "blackjack"
+version = "0.0.1"
+authors = [
+  { name="Jonathan Ström", email="jonathan_stroem@pm.me" },
+]
+description = "Play Blackjack in the terminal"
+readme = "README.md"
+requires-python = ">=3.7"
