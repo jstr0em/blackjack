@@ -1,8 +1,8 @@
 import imp
 import sys
-from participants import Player, Dealer
-from blackjack import Blackjack
-from cards import Deck
+from blackjack.participants import Player, Dealer
+from blackjack.blackjack import Blackjack
+from blackjack.cards import Deck
 
 def generate_players(player_name_credit_list):
     players = []

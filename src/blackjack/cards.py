@@ -25,13 +25,13 @@ class Rank(Enum):
     KING = 'E'
 
 class Card:
-    def __init__(self, suit, rank):
-        self.suit = suit
+    def __init__(self, rank, suit):
         self.rank = rank
-
+        self.suit = suit
+        
 
     def __repr__(self):
-        unicode = "0001F0{suit}{rank}".format(suit = self.suit, rank = self.rank)
+        unicode = '0001F0{suit}{rank}'.format(suit = self.suit.value, rank = self.rank.value)
         return chr(int(unicode, base=16))
 
 
@@ -44,8 +44,8 @@ class Card:
         return self.suit
     
 
-    def get_symbol(self):
-        return self.symbol
+    def get_rank(self):
+        return self.rank
 
     def is_ace(self):
         return self.rank is Rank.ACE
@@ -53,6 +53,7 @@ class Card:
 
     def is_face(self):
         return self.rank is Rank.KNIGHT or Rank.QUEEN or Rank.KING
+
 
     def is_ten_or_face(self):
         return type(self.rank.value) is str
@@ -64,11 +65,7 @@ class Cards(list):
 
 
     def __repr__(self):
-        cards = ""
-        for card in self:
-            cards += card.__repr__() + " "
-
-        return cards.rstrip()
+        return U' '.join(map(str, self))
 
 
     def __add__(self, item): # must be able to process card oject
