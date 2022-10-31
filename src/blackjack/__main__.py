@@ -1,4 +1,3 @@
-import imp
 import sys
 from blackjack.participants import Player, Dealer
 from blackjack.blackjack import Blackjack
@@ -13,14 +12,57 @@ def generate_players(player_name_credit_list):
         players.append(player)
 
     return players
-        
+
+
+def welcome():
+    print("Welcome to Blackjack!")
+
+
+def show_choices():
+    print("1) Play game")
+    print("2) Quick match")
+    print("3) Options")
+    print("4) Exit")
+
+
+def play_game():
+    pass
+
+
+def quick_match():
+    pass
+
+
+def options():
+    pass
+
+
 def main():
-    players = generate_players(sys.argv[1:])
-    dealer = Dealer()
-    deck = Deck()
+    welcome()
+
+    while True:
+        show_choices()
+
+        try:
+            choice = int(input("Enter a number: "))
+        except ValueError:
+            print("Invalid input.")
+            continue
+
+        if choice < 1 or choice > 4:
+            print("Pick a valid choice.")
+        else:
+            break
     
-    blackjack = Blackjack(players, dealer, deck)
-    blackjack.play_round()
+        if choice == 1:
+            play_game()
+        elif choice == 2:
+            quick_match()
+        elif choice == 3:
+            options
+        elif choice == 4:
+            pass
+
 
 if __name__ == "__main__":
     main()
